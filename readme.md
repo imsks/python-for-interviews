@@ -6,4 +6,4 @@ Step 2: Install the dependencies
 pip install -r requirements.txt
 
 Step 3: Run the application
-python app.py
+python py/index.py
