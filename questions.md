@@ -8,7 +8,7 @@
 4. [x] Mutable vs Immutable types — how does it affect dictionary keys?
 5. [x] Explain Python's memory management (reference counting, garbage collection).
 6. [x] Difference between deep copy and shallow copy?
-7. [ ] Explain Python's GIL (Global Interpreter Lock). How does it affect threading?
+7. [x] Explain Python's GIL (Global Interpreter Lock). How does it affect threading?
 8. [ ] Explain Python's data model (__str__, __repr__, __eq__, __lt__, etc.)
 9. [ ] What is the difference between @staticmethod, @classmethod, and instance methods?
 
