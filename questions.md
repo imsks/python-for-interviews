@@ -4,10 +4,10 @@
 
 1. [x] What are *args and **kwargs? Use-cases?
 2. [x] What are Python decorators? Write a custom decorator with arguments.
-3. [ ] What is the difference between is vs == in Python?
-4. [ ] Mutable vs Immutable types — how does it affect dictionary keys?
-5. [ ] Explain Python's memory management (reference counting, garbage collection).
-6. [ ] Difference between deep copy and shallow copy?
+3. [x] What is the difference between is vs == in Python?
+4. [x] Mutable vs Immutable types — how does it affect dictionary keys?
+5. [x] Explain Python's memory management (reference counting, garbage collection).
+6. [x] Difference between deep copy and shallow copy?
 7. [ ] Explain Python's GIL (Global Interpreter Lock). How does it affect threading?
 8. [ ] Explain Python's data model (__str__, __repr__, __eq__, __lt__, etc.)
 9. [ ] What is the difference between @staticmethod, @classmethod, and instance methods?

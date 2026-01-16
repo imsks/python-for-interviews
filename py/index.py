@@ -783,3 +783,356 @@
 # """)
 
 # print("=" * 60)
+
+# Topic 6: Deep Copy vs Shallow Copy
+
+import copy
+
+print("=" * 60)
+print("TOPIC 6: Deep Copy vs Shallow Copy")
+print("=" * 60)
+
+# ========== PART 1: Understanding Assignment ==========
+print("\n" + "─" * 60)
+print("PART 1: Regular Assignment (Reference)")
+print("─" * 60)
+
+print("""
+Regular Assignment (=):
+  • Creates a reference to the same object
+  • Both variables point to same memory location
+  • Changes to one affect the other
+""")
+
+original = [1, 2, 3]
+reference = original  # Just a reference, not a copy
+
+print(f"\n1. Regular Assignment:")
+print(f"   original = {original}")
+print(f"   reference = original")
+print(f"   reference = {reference}")
+
+reference.append(4)
+print(f"\n   After reference.append(4):")
+print(f"   original = {original}")  # Changed!
+print(f"   reference = {reference}")  # Changed!
+print(f"   id(original) == id(reference): {id(original) == id(reference)}")
+print("   ⚠️  Both point to the same object!")
+
+# ========== PART 2: Shallow Copy ==========
+print("\n" + "─" * 60)
+print("PART 2: Shallow Copy")
+print("─" * 60)
+
+print("""
+Shallow Copy:
+  • Creates a NEW top-level object
+  • Copies references to nested objects
+  • Nested objects are still shared
+  • Changes to nested objects affect both
+""")
+
+# Method 1: Using copy.copy()
+original_list = [1, 2, [3, 4]]
+shallow1 = copy.copy(original_list)
+
+# Method 2: Using list.copy() (for lists)
+shallow2 = original_list.copy()
+
+# Method 3: Using slicing (for lists)
+shallow3 = original_list[:]
+
+# Method 4: Using list() constructor
+shallow4 = list(original_list)
+
+print("\n1. Creating Shallow Copy (Multiple Methods):")
+print(f"   original_list = {original_list}")
+
+print("\n   Method 1: copy.copy()")
+print(f"   shallow1 = copy.copy(original_list)")
+
+print("\n   Method 2: list.copy()")
+print(f"   shallow2 = original_list.copy()")
+
+print("\n   Method 3: Slicing")
+print(f"   shallow3 = original_list[:]")
+
+print("\n   Method 4: list() constructor")
+print(f"   shallow4 = list(original_list)")
+
+# Test shallow copy behavior
+print("\n2. Shallow Copy Behavior:")
+
+# Modify top-level element
+shallow1[0] = 100
+print(f"   After shallow1[0] = 100:")
+print(f"   original_list = {original_list}")  # [1, 2, [3, 4]] - unchanged
+print(f"   shallow1 = {shallow1}")           # [100, 2, [3, 4]] - changed
+
+# Modify nested object
+shallow1[2].append(5)
+print(f"\n   After shallow1[2].append(5):")
+print(f"   original_list = {original_list}")  # [1, 2, [3, 4, 5]] - nested changed!
+print(f"   shallow1 = {shallow1}")           # [100, 2, [3, 4, 5]] - nested changed!
+
+print("\n   Key Point:")
+print("   • Top-level changes: Independent")
+print("   • Nested changes: Shared!")
+
+# ========== PART 3: Deep Copy ==========
+print("\n" + "─" * 60)
+print("PART 3: Deep Copy")
+print("─" * 60)
+
+print("""
+Deep Copy:
+  • Creates completely independent copy
+  • Recursively copies all nested objects
+  • No shared references
+  • Changes are completely independent
+""")
+
+original_list2 = [1, 2, [3, 4]]
+deep = copy.deepcopy(original_list2)
+
+print("\n1. Creating Deep Copy:")
+print(f"   original_list2 = {original_list2}")
+print(f"   deep = copy.deepcopy(original_list2)")
+
+# Modify top-level element
+deep[0] = 100
+print(f"\n2. After deep[0] = 100:")
+print(f"   original_list2 = {original_list2}")  # [1, 2, [3, 4]] - unchanged
+print(f"   deep = {deep}")                      # [100, 2, [3, 4]] - changed
+
+# Modify nested object
+deep[2].append(5)
+print(f"\n3. After deep[2].append(5):")
+print(f"   original_list2 = {original_list2}")  # [1, 2, [3, 4]] - unchanged!
+print(f"   deep = {deep}")                      # [100, 2, [3, 4, 5]] - changed
+
+print("\n   Key Point:")
+print("   • Top-level changes: Independent")
+print("   • Nested changes: Independent!")
+
+# ========== PART 4: Visual Comparison ==========
+print("\n" + "─" * 60)
+print("PART 4: Side-by-Side Comparison")
+print("─" * 60)
+
+# Setup
+original = [1, 2, [3, 4]]
+shallow = copy.copy(original)
+deep = copy.deepcopy(original)
+
+print("\nInitial State:")
+print(f"   original = {original}")
+print(f"   shallow = {shallow}")
+print(f"   deep = {deep}")
+
+# Modify nested list
+print("\nAfter modifying nested list:")
+shallow[2].append(5)
+deep[2].append(6)
+
+print(f"   original = {original}")  # [1, 2, [3, 4, 5]] - affected by shallow!
+print(f"   shallow = {shallow}")   # [1, 2, [3, 4, 5]] - same as original
+print(f"   deep = {deep}")         # [1, 2, [3, 4, 6]] - independent!
+
+print("\n   Summary:")
+print("   • Shallow copy: Nested objects shared → both changed")
+print("   • Deep copy: Nested objects independent → only deep changed")
+
+# ========== PART 5: Dictionaries ==========
+print("\n" + "─" * 60)
+print("PART 5: Shallow vs Deep Copy with Dictionaries")
+print("─" * 60)
+
+original_dict = {
+    "name": "Python",
+    "versions": [3.8, 3.9, 3.10],
+    "info": {"creator": "Guido", "year": 1991}
+}
+
+shallow_dict = copy.copy(original_dict)
+deep_dict = copy.deepcopy(original_dict)
+
+print("\n1. Original Dictionary:")
+print(f"   {original_dict}")
+
+# Modify nested list
+shallow_dict["versions"].append(3.11)
+deep_dict["versions"].append(3.12)
+
+print("\n2. After modifying nested list:")
+print(f"   original_dict = {original_dict}")  # versions changed!
+print(f"   shallow_dict = {shallow_dict}")   # versions changed!
+print(f"   deep_dict = {deep_dict}")         # versions independent!
+
+# Modify nested dict
+shallow_dict["info"]["year"] = 2024
+deep_dict["info"]["year"] = 2025
+
+print("\n3. After modifying nested dictionary:")
+print(f"   original_dict = {original_dict}")  # year changed!
+print(f"   shallow_dict = {shallow_dict}")   # year changed!
+print(f"   deep_dict = {deep_dict}")         # year independent!
+
+# ========== PART 6: Custom Objects ==========
+print("\n" + "─" * 60)
+print("PART 6: Custom Objects")
+print("─" * 60)
+
+class Person:
+    def __init__(self, name, friends=None):
+        self.name = name
+        self.friends = friends if friends else []
+    
+    def __repr__(self):
+        return f"Person({self.name}, friends={self.friends})"
+
+person1 = Person("Alice", [Person("Bob")])
+person2 = copy.copy(person1)      # Shallow copy
+person3 = copy.deepcopy(person1)  # Deep copy
+
+print("\n1. Original Person:")
+print(f"   person1 = {person1}")
+
+# Modify nested list
+person2.friends.append(Person("Charlie"))
+person3.friends.append(Person("David"))
+
+print("\n2. After modifying friends list:")
+print(f"   person1 = {person1}")  # friends changed!
+print(f"   person2 = {person2}")  # friends changed!
+print(f"   person3 = {person3}")  # friends independent!
+
+# ========== PART 7: When to Use Each ==========
+print("\n" + "─" * 60)
+print("PART 7: When to Use Shallow vs Deep Copy")
+print("─" * 60)
+
+print("""
+Use SHALLOW COPY when:
+  ✓ Object has no nested mutable objects
+  ✓ You want faster performance
+  ✓ Nested objects can be shared
+  ✓ Flat structures (list of numbers, strings)
+
+Use DEEP COPY when:
+  ✓ Object has nested mutable objects
+  ✓ You need complete independence
+  ✓ Nested objects must not be shared
+  ✓ Complex nested structures
+  ✓ You're unsure (safer default)
+""")
+
+# Example: When shallow copy is fine
+print("\n1. Shallow Copy is Fine (Flat Structure):")
+flat_list = [1, 2, 3, 4, 5]
+shallow_flat = copy.copy(flat_list)
+shallow_flat[0] = 100
+print(f"   original = {flat_list}")      # [1, 2, 3, 4, 5]
+print(f"   shallow = {shallow_flat}")    # [100, 2, 3, 4, 5]
+print("   ✓ No nested objects, shallow copy works perfectly")
+
+# Example: When deep copy is needed
+print("\n2. Deep Copy is Needed (Nested Structure):")
+nested_list = [[1, 2], [3, 4], [5, 6]]
+shallow_nested = copy.copy(nested_list)
+deep_nested = copy.deepcopy(nested_list)
+
+shallow_nested[0].append(7)
+deep_nested[0].append(8)
+
+print(f"   original = {nested_list}")      # [[1, 2, 7], [3, 4], [5, 6]]
+print(f"   shallow = {shallow_nested}")    # [[1, 2, 7], [3, 4], [5, 6]]
+print(f"   deep = {deep_nested}")          # [[1, 2, 8], [3, 4], [5, 6]]
+print("   ⚠️  Shallow copy shares nested lists!")
+
+# ========== PART 8: Performance Comparison ==========
+print("\n" + "─" * 60)
+print("PART 8: Performance Considerations")
+print("─" * 60)
+
+import time
+
+large_nested = [[i for i in range(1000)] for _ in range(1000)]
+
+# Shallow copy timing
+start = time.time()
+shallow_copy = copy.copy(large_nested)
+shallow_time = time.time() - start
+
+# Deep copy timing
+start = time.time()
+deep_copy = copy.deepcopy(large_nested)
+deep_time = time.time() - start
+
+print(f"\nPerformance Test (1000x1000 nested list):")
+print(f"   Shallow copy: {shallow_time:.6f} seconds")
+print(f"   Deep copy: {deep_time:.6f} seconds")
+print(f"   Deep copy is {deep_time/shallow_time:.1f}x slower")
+print("\n   Reason: Deep copy recursively copies all nested objects")
+
+# ========== PART 9: Common Pitfalls ==========
+print("\n" + "─" * 60)
+print("PART 9: Common Pitfalls & Gotchas")
+print("─" * 60)
+
+print("\n1. Pitfall: Thinking shallow copy is independent")
+original = [1, [2, 3]]
+shallow = copy.copy(original)
+shallow[1].append(4)
+print(f"   original = {original}")  # [1, [2, 3, 4]] - changed!
+print("   ⚠️  Shallow copy shares nested objects!")
+
+print("\n2. Pitfall: Using = instead of copy")
+original = [1, 2, 3]
+wrong = original  # Not a copy!
+wrong.append(4)
+print(f"   original = {original}")  # [1, 2, 3, 4] - changed!
+print("   ⚠️  This is just a reference, not a copy!")
+
+print("\n3. Solution: Always use copy.copy() or copy.deepcopy()")
+original = [1, 2, 3]
+correct = copy.copy(original)
+correct.append(4)
+print(f"   original = {original}")  # [1, 2, 3] - unchanged!
+print("   ✓ Correct way to copy")
+
+# ========== SUMMARY ==========
+print("\n" + "=" * 60)
+print("SUMMARY - Key Takeaways for Interviews")
+print("=" * 60)
+
+print("""
+1. SHALLOW COPY (copy.copy()):
+   • Creates new top-level object
+   • Copies references to nested objects
+   • Nested objects are shared
+   • Faster performance
+   • Use for flat structures
+
+2. DEEP COPY (copy.deepcopy()):
+   • Creates completely independent copy
+   • Recursively copies all nested objects
+   • No shared references
+   • Slower performance
+   • Use for nested structures
+
+3. METHODS TO CREATE COPIES:
+   • Shallow: copy.copy(), list.copy(), list[:], list()
+   • Deep: copy.deepcopy() (only method)
+
+4. WHEN TO USE:
+   • Shallow: Flat objects, performance critical
+   • Deep: Nested objects, need independence
+
+5. COMMON MISTAKES:
+   • Using = instead of copy
+   • Using shallow copy for nested structures
+   • Not understanding shared references
+""")
+
+print("=" * 60)
