@@ -2407,3 +2407,487 @@
 # """)
 
 # print("=" * 60)
+
+# Topic 9: @staticmethod, @classmethod, and Instance Methods
+
+print("=" * 60)
+print("TOPIC 9: @staticmethod, @classmethod, and Instance Methods")
+print("=" * 60)
+
+# ========== PART 1: Instance Methods ==========
+print("\n" + "─" * 60)
+print("PART 1: Instance Methods (Default)")
+print("─" * 60)
+
+print("""
+Instance Methods:
+  • First parameter: self (instance)
+  • Access instance attributes and methods
+  • Access class attributes and methods
+  • Called on instance: obj.method()
+  • Most common type of method
+""")
+
+class Person:
+    species = "Homo sapiens"  # Class attribute
+    
+    def __init__(self, name, age):
+        self.name = name      # Instance attribute
+        self.age = age
+    
+    # Instance method
+    def introduce(self):
+        """Instance method - has access to self"""
+        return f"Hi, I'm {self.name}, {self.age} years old"
+    
+    def get_birth_year(self, current_year):
+        """Instance method using instance data"""
+        return current_year - self.age
+    
+    def is_adult(self):
+        """Instance method checking instance state"""
+        return self.age >= 18
+
+person1 = Person("Alice", 25)
+person2 = Person("Bob", 16)
+
+print("\n1. Instance Methods:")
+print(f"   person1.introduce(): {person1.introduce()}")
+print(f"   person1.get_birth_year(2024): {person1.get_birth_year(2024)}")
+print(f"   person1.is_adult(): {person1.is_adult()}")
+print(f"   person2.is_adult(): {person2.is_adult()}")
+
+# ========== PART 2: @classmethod ==========
+print("\n" + "─" * 60)
+print("PART 2: @classmethod")
+print("─" * 60)
+
+print("""
+@classmethod:
+  • First parameter: cls (class, not instance)
+  • Receives class as first argument
+  • Can access class attributes
+  • Cannot access instance attributes directly
+  • Called on class or instance: Person.method() or person.method()
+  • Common use: Alternative constructors
+""")
+
+class Person:
+    species = "Homo sapiens"
+    population = 0
+    
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        Person.population += 1
+    
+    @classmethod
+    def get_population(cls):
+        """Class method - works with class, not instance"""
+        return f"Total population: {cls.population}"
+    
+    @classmethod
+    def from_birth_year(cls, name, birth_year, current_year=2024):
+        """Alternative constructor - common use case"""
+        age = current_year - birth_year
+        return cls(name, age)
+    
+    @classmethod
+    def create_baby(cls, name):
+        """Another alternative constructor"""
+        return cls(name, 0)
+    
+    def introduce(self):
+        return f"Hi, I'm {self.name}, {self.age} years old"
+
+# Using class methods
+print("\n1. Class Methods - Accessing Class Attributes:")
+print(f"   Person.get_population(): {Person.get_population()}")
+
+p1 = Person("Alice", 25)
+print(f"   After creating person: {Person.get_population()}")
+
+p2 = Person("Bob", 30)
+print(f"   After creating another: {Person.get_population()}")
+
+print("\n2. Class Methods - Alternative Constructors:")
+# Create from birth year instead of age
+p3 = Person.from_birth_year("Charlie", 1995)
+print(f"   Person.from_birth_year('Charlie', 1995): {p3.introduce()}")
+
+# Create a baby
+p4 = Person.create_baby("David")
+print(f"   Person.create_baby('David'): {p4.introduce()}")
+
+print("\n3. Class Methods - Can be called on instance too:")
+print(f"   p1.get_population(): {p1.get_population()}")
+print("   (But it still receives the class, not instance)")
+
+# ========== PART 3: @staticmethod ==========
+print("\n" + "─" * 60)
+print("PART 3: @staticmethod")
+print("─" * 60)
+
+print("""
+@staticmethod:
+  • No special first parameter (no self, no cls)
+  • Cannot access instance or class directly
+  • Just a regular function inside a class
+  • Called on class or instance: Person.method() or person.method()
+  • Common use: Utility functions related to the class
+""")
+
+class MathHelper:
+    @staticmethod
+    def add(a, b):
+        """Static method - no self or cls"""
+        return a + b
+    
+    @staticmethod
+    def multiply(a, b):
+        """Static method - just a utility function"""
+        return a * b
+    
+    @staticmethod
+    def is_even(n):
+        """Static method - related to class but doesn't need instance/class"""
+        return n % 2 == 0
+
+print("\n1. Static Methods:")
+print(f"   MathHelper.add(5, 3): {MathHelper.add(5, 3)}")
+print(f"   MathHelper.multiply(4, 7): {MathHelper.multiply(4, 7)}")
+print(f"   MathHelper.is_even(10): {MathHelper.is_even(10)}")
+
+# Can also call on instance (but not recommended)
+helper = MathHelper()
+print(f"\n   helper.add(2, 3): {helper.add(2, 3)}")
+print("   (Works, but not the typical way)")
+
+# ========== PART 4: Complete Example ==========
+print("\n" + "─" * 60)
+print("PART 4: Complete Example - All Three Types")
+print("─" * 60)
+
+class Date:
+    def __init__(self, day, month, year):
+        self.day = day
+        self.month = month
+        self.year = year
+    
+    # Instance method
+    def display(self):
+        """Instance method - uses instance data"""
+        return f"{self.day}/{self.month}/{self.year}"
+    
+    # Class method - alternative constructor
+    @classmethod
+    def from_string(cls, date_string):
+        """Parse date from string format: 'DD-MM-YYYY'"""
+        day, month, year = map(int, date_string.split('-'))
+        return cls(day, month, year)
+    
+    @classmethod
+    def today(cls):
+        """Create Date object for today (simplified)"""
+        # In real code, you'd use datetime module
+        return cls(15, 3, 2024)  # Example date
+    
+    # Static method - utility function
+    @staticmethod
+    def is_leap_year(year):
+        """Check if year is leap year - doesn't need instance or class"""
+        return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+    
+    @staticmethod
+    def days_in_month(month, year):
+        """Get number of days in month - utility function"""
+        days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        if month == 2 and Date.is_leap_year(year):
+            return 29
+        return days[month - 1]
+
+# Using all three types
+print("\n1. Instance Method:")
+date1 = Date(15, 3, 2024)
+print(f"   date1.display(): {date1.display()}")
+
+print("\n2. Class Method (Alternative Constructor):")
+date2 = Date.from_string("20-12-2023")
+print(f"   Date.from_string('20-12-2023'): {date2.display()}")
+
+date3 = Date.today()
+print(f"   Date.today(): {date3.display()}")
+
+print("\n3. Static Method (Utility Function):")
+print(f"   Date.is_leap_year(2024): {Date.is_leap_year(2024)}")
+print(f"   Date.is_leap_year(2023): {Date.is_leap_year(2023)}")
+print(f"   Date.days_in_month(2, 2024): {Date.days_in_month(2, 2024)}")
+print(f"   Date.days_in_month(2, 2023): {Date.days_in_month(2, 2023)}")
+
+# ========== PART 5: Key Differences ==========
+print("\n" + "─" * 60)
+print("PART 5: Key Differences - Side by Side")
+print("─" * 60)
+
+class Example:
+    class_var = "I'm a class variable"
+    
+    def __init__(self, instance_var):
+        self.instance_var = instance_var
+    
+    # Instance method
+    def instance_method(self):
+        """Has access to self (instance)"""
+        return f"Instance: {self.instance_var}, Class: {self.class_var}"
+    
+    # Class method
+    @classmethod
+    def class_method(cls):
+        """Has access to cls (class)"""
+        return f"Class: {cls.class_var}"
+        # Cannot access: self.instance_var (no self!)
+    
+    # Static method
+    @staticmethod
+    def static_method():
+        """No access to self or cls"""
+        return "I'm just a function"
+        # Cannot access: self.instance_var or cls.class_var
+
+obj = Example("instance value")
+
+print("\nComparison Table:")
+print("""
+┌─────────────────┬──────────────┬──────────────┬──────────────┐
+│                 │ Instance     │ Class        │ Static       │
+├─────────────────┼──────────────┼──────────────┼──────────────┤
+│ First Parameter │ self         │ cls          │ None         │
+├─────────────────┼──────────────┼──────────────┼──────────────┤
+│ Access Instance │ ✓ Yes        │ ✗ No         │ ✗ No         │
+├─────────────────┼──────────────┼──────────────┼──────────────┤
+│ Access Class    │ ✓ Yes        │ ✓ Yes        │ ✗ No         │
+├─────────────────┼──────────────┼──────────────┼──────────────┤
+│ Called On       │ Instance     │ Class/Instance│ Class/Instance│
+├─────────────────┼──────────────┼──────────────┼──────────────┤
+│ Use Case        │ Work with    │ Alternative  │ Utility      │
+│                 │ instance data│ constructors │ functions    │
+└─────────────────┴──────────────┴──────────────┴──────────────┘
+""")
+
+print("\nExamples:")
+print(f"   obj.instance_method(): {obj.instance_method()}")
+print(f"   Example.class_method(): {Example.class_method()}")
+print(f"   Example.static_method(): {Example.static_method()}")
+
+# ========== PART 6: When to Use Each ==========
+print("\n" + "─" * 60)
+print("PART 6: When to Use Each Type")
+print("─" * 60)
+
+print("""
+Use INSTANCE METHODS when:
+  ✓ You need to access or modify instance attributes
+  ✓ Method behavior depends on instance state
+  ✓ Most common case (default choice)
+  ✓ Example: obj.get_name(), obj.set_age(25)
+
+Use @classmethod when:
+  ✓ You need alternative constructors
+  ✓ You need to access class attributes
+  ✓ Factory methods
+  ✓ Example: Person.from_birth_year(), Date.today()
+
+Use @staticmethod when:
+  ✓ Utility function related to class but doesn't need instance/class
+  ✓ Function could be outside class but logically belongs there
+  ✓ No access to self or cls needed
+  ✓ Example: MathHelper.add(), Date.is_leap_year()
+""")
+
+# ========== PART 7: Real-World Examples ==========
+print("\n" + "─" * 60)
+print("PART 7: Real-World Examples")
+print("─" * 60)
+
+# Example 1: Database Model
+class User:
+    users = []  # Class variable (simplified)
+    
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
+        self.id = len(User.users) + 1
+        User.users.append(self)
+    
+    # Instance method
+    def get_profile(self):
+        return f"User: {self.username} ({self.email})"
+    
+    # Class method - find user
+    @classmethod
+    def find_by_username(cls, username):
+        """Find user by username - class method"""
+        for user in cls.users:
+            if user.username == username:
+                return user
+        return None
+    
+    @classmethod
+    def create_admin(cls):
+        """Factory method - create admin user"""
+        admin = cls("admin", "admin@example.com")
+        return admin
+    
+    # Static method - validation
+    @staticmethod
+    def is_valid_email(email):
+        """Check if email is valid - utility function"""
+        return "@" in email and "." in email.split("@")[1]
+
+print("\n1. User Management Example:")
+user1 = User("alice", "alice@example.com")
+user2 = User("bob", "bob@example.com")
+
+print(f"   user1.get_profile(): {user1.get_profile()}")
+print(f"   User.find_by_username('alice'): {User.find_by_username('alice').get_profile()}")
+print(f"   User.is_valid_email('test@example.com'): {User.is_valid_email('test@example.com')}")
+print(f"   User.is_valid_email('invalid'): {User.is_valid_email('invalid')}")
+
+# Example 2: Configuration
+class Config:
+    api_key = None
+    base_url = "https://api.example.com"
+    
+    def __init__(self, api_key):
+        self.api_key = api_key
+    
+    # Instance method
+    def get_headers(self):
+        """Instance method - uses instance data"""
+        return {"Authorization": f"Bearer {self.api_key}"}
+    
+    # Class method - load from file
+    @classmethod
+    def from_file(cls, filename):
+        """Load config from file - alternative constructor"""
+        # Simplified - in real code, read from file
+        return cls("loaded_api_key")
+    
+    # Static method - validation
+    @staticmethod
+    def validate_url(url):
+        """Validate URL format - utility"""
+        return url.startswith("http://") or url.startswith("https://")
+
+print("\n2. Configuration Example:")
+config = Config("my_api_key")
+print(f"   config.get_headers(): {config.get_headers()}")
+print(f"   Config.validate_url('https://api.com'): {Config.validate_url('https://api.com')}")
+
+# ========== PART 8: Common Mistakes ==========
+print("\n" + "─" * 60)
+print("PART 8: Common Mistakes")
+print("─" * 60)
+
+print("""
+Mistake 1: Using @staticmethod when you need @classmethod
+  ✗ @staticmethod
+    def create_user(name):
+        return User(name)  # Error! Can't access User class
+  
+  ✓ @classmethod
+    def create_user(cls, name):
+        return cls(name)  # Correct!
+
+Mistake 2: Forgetting self in instance method
+  ✗ def method():  # Missing self!
+      return self.value
+  
+  ✓ def method(self):
+      return self.value
+
+Mistake 3: Using instance method when static would work
+  ✗ def add(self, a, b):  # Doesn't need self!
+      return a + b
+  
+  ✓ @staticmethod
+    def add(a, b):
+      return a + b
+
+Mistake 4: Confusing when to use each
+  • Need instance data? → Instance method
+  • Need class or alternative constructor? → @classmethod
+  • Just a utility function? → @staticmethod
+""")
+
+# ========== PART 9: Method Resolution ==========
+print("\n" + "─" * 60)
+print("PART 9: How Python Calls Each Method Type")
+print("─" * 60)
+
+class Demo:
+    @classmethod
+    def class_method(cls):
+        print(f"   Called with class: {cls}")
+    
+    @staticmethod
+    def static_method():
+        print("   Static method called")
+
+obj = Demo()
+
+print("\n1. Class Method:")
+print("   Demo.class_method():")
+Demo.class_method()
+print("   obj.class_method():")
+obj.class_method()
+print("   (Both receive the class)")
+
+print("\n2. Static Method:")
+print("   Demo.static_method():")
+Demo.static_method()
+print("   obj.static_method():")
+obj.static_method()
+print("   (Both work the same way)")
+
+# ========== SUMMARY ==========
+print("\n" + "=" * 60)
+print("SUMMARY - Key Takeaways for Interviews")
+print("=" * 60)
+
+print("""
+1. INSTANCE METHODS:
+   • First parameter: self
+   • Access instance and class
+   • Most common type
+   • Called on instance: obj.method()
+
+2. @classmethod:
+   • First parameter: cls (class)
+   • Access class, not instance
+   • Common use: Alternative constructors
+   • Called on class or instance: Class.method()
+
+3. @staticmethod:
+   • No special first parameter
+   • No access to instance or class
+   • Just a function in a class
+   • Called on class or instance: Class.method()
+
+4. WHEN TO USE:
+   • Instance: Need instance data (default choice)
+   • Class: Alternative constructors, factory methods
+   • Static: Utility functions related to class
+
+5. KEY DIFFERENCES:
+   • Instance: self → instance + class access
+   • Class: cls → class access only
+   • Static: nothing → no access to instance/class
+
+6. COMMON PATTERNS:
+   • from_string(), from_dict() → @classmethod
+   • is_valid(), calculate() → @staticmethod
+   • get_*, set_*, process_* → Instance method
+""")
+
+print("=" * 60)
