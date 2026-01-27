@@ -9,26 +9,26 @@
 5. [x] Explain Python's memory management (reference counting, garbage collection).
 6. [x] Difference between deep copy and shallow copy?
 7. [x] Explain Python's GIL (Global Interpreter Lock). How does it affect threading?
-8. [ ] Explain Python's data model (__str__, __repr__, __eq__, __lt__, etc.)
-9. [ ] What is the difference between @staticmethod, @classmethod, and instance methods?
+8. [x] Explain Python's data model (__str__, __repr__, __eq__, __lt__, etc.)
+9. [x] What is the difference between @staticmethod, @classmethod, and instance methods?
 
 ## Python Special Attributes & Dunder Methods
 
-10. [ ] What is `__name__` in Python? How is it used?
-11. [ ] What are other important `__dunder__` methods? (`__init__`, `__main__`, `__file__`, `__doc__`, etc.)
-12. [ ] How does `if __name__ == "__main__"` work? Why is it important?
+10. [x] What is `__name__` in Python? How is it used?
+11. [x] What are other important `__dunder__` methods? (`__init__`, `__main__`, `__file__`, `__doc__`, etc.)
+12. [x] How does `if __name__ == "__main__"` work? Why is it important?
 
 ## Python Data Types
 
-13. [ ] What are Lists in Python? How do they differ from arrays?
-14. [ ] What are Tuples? When to use tuples vs lists?
-15. [ ] What are Dictionaries? How are they implemented internally?
-16. [ ] What are Sets? How do they differ from lists and tuples?
-17. [ ] What is the difference between List, Tuple, Set, and Dictionary?
-18. [ ] How do you create and work with Arrays in Python? (array module vs NumPy)
-19. [ ] What are the key differences between mutable and immutable data types?
-20. [ ] How do you iterate over different data types efficiently?
-21. [ ] What are dictionary comprehensions, list comprehensions, and set comprehensions?
+13. [x] What are Lists in Python? How do they differ from arrays?
+14. [x] What are Tuples? When to use tuples vs lists?
+15. [x] What are Dictionaries? How are they implemented internally?
+16. [x] What are Sets? How do they differ from lists and tuples?
+17. [x] What is the difference between List, Tuple, Set, and Dictionary?
+18. [x] How do you create and work with Arrays in Python? (array module vs NumPy)
+19. [x] What are the key differences between mutable and immutable data types?
+20. [x] How do you iterate over different data types efficiently?
+21. [x] What are dictionary comprehensions, list comprehensions, and set comprehensions?
 
 ## Advanced Python
 
