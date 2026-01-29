@@ -2891,3 +2891,283 @@
 # """)
 
 # print("=" * 60)
+
+# # Topic 22: Iterators vs Generators
+# my_list = [1, 2, 3]
+# iterator = iter(my_list)
+# print(next(iterator))
+
+# Topic 22: Iterators vs Generators
+
+print("=" * 60)
+print("TOPIC 22: Iterators vs Generators")
+print("=" * 60)
+
+# ========== PART 1: Understanding Iterables ==========
+print("\n" + "─" * 60)
+print("PART 1: Iterables vs Iterators")
+print("─" * 60)
+
+print("\n1. Iterables (Can be iterated):")
+print("   • Lists, tuples, strings, dicts, sets")
+print("   • Have __iter__() method")
+
+my_list = [1, 2, 3]
+print(f"   my_list = {my_list}")
+
+# Convert to iterator
+iterator = iter(my_list)
+print(f"   iterator = iter(my_list)")
+print(f"   type(iterator) = {type(iterator)}")
+
+# Use next() to get items
+print("\n2. Using next() on Iterator:")
+print(f"   next(iterator) = {next(iterator)}")
+print(f"   next(iterator) = {next(iterator)}")
+print(f"   next(iterator) = {next(iterator)}")
+# next(iterator)  # Would raise StopIteration
+
+# ========== PART 2: Custom Iterator ==========
+print("\n" + "─" * 60)
+print("PART 2: Creating Custom Iterator")
+print("─" * 60)
+
+class CountDown:
+    """Custom iterator that counts down"""
+    
+    def __init__(self, start):
+        self.current = start
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.current <= 0:
+            raise StopIteration
+        self.current -= 1
+        return self.current + 1
+
+print("\n1. Custom Iterator Class:")
+countdown = CountDown(5)
+print(f"   countdown = CountDown(5)")
+
+print("   Iterating:")
+for num in countdown:
+    print(f"     {num}")
+
+# ========== PART 3: Generator Function ==========
+print("\n" + "─" * 60)
+print("PART 3: Generator Functions")
+print("─" * 60)
+
+def simple_generator():
+    """Simple generator function"""
+    yield 1
+    yield 2
+    yield 3
+
+print("\n1. Simple Generator:")
+gen = simple_generator()
+print(f"   gen = simple_generator()")
+print(f"   type(gen) = {type(gen)}")
+
+print("   Using next():")
+print(f"     next(gen) = {next(gen)}")
+print(f"     next(gen) = {next(gen)}")
+print(f"     next(gen) = {next(gen)}")
+
+# Generator with loop
+def countdown_generator(n):
+    """Generator that counts down"""
+    while n > 0:
+        yield n
+        n -= 1
+
+print("\n2. Generator with Loop:")
+for num in countdown_generator(5):
+    print(f"     {num}")
+
+# ========== PART 4: Generator Expression ==========
+print("\n" + "─" * 60)
+print("PART 4: Generator Expressions")
+print("─" * 60)
+
+# List comprehension (eager)
+squares_list = [x**2 for x in range(5)]
+print("\n1. List Comprehension (Eager - creates all at once):")
+print(f"   squares_list = {squares_list}")
+
+# Generator expression (lazy)
+squares_gen = (x**2 for x in range(5))
+print("\n2. Generator Expression (Lazy - generates on demand):")
+print(f"   squares_gen = {squares_gen}")
+print(f"   type(squares_gen) = {type(squares_gen)}")
+print(f"   list(squares_gen) = {list(squares_gen)}")
+
+# Memory comparison
+print("\n3. Memory Efficiency:")
+print("   List: Stores all values in memory")
+print("   Generator: Generates values on demand")
+
+# ========== PART 5: Practical Examples ==========
+print("\n" + "─" * 60)
+print("PART 5: Practical Examples")
+print("─" * 60)
+
+# Example 1: Fibonacci Generator
+def fibonacci_generator(n):
+    """Generate first n Fibonacci numbers"""
+    a, b = 0, 1
+    count = 0
+    while count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
+
+print("\n1. Fibonacci Generator:")
+fib = fibonacci_generator(10)
+print(f"   First 10 Fibonacci numbers: {list(fib)}")
+
+# Example 2: Infinite Generator
+def infinite_counter():
+    """Infinite counter generator"""
+    count = 0
+    while True:
+        yield count
+        count += 1
+
+print("\n2. Infinite Generator:")
+counter = infinite_counter()
+print("   next(counter) =", next(counter))
+print("   next(counter) =", next(counter))
+print("   next(counter) =", next(counter))
+print("   (Can generate values forever)")
+
+# Example 3: Reading Large File
+def read_large_file(filename):
+    """Generator to read file line by line (memory efficient)"""
+    with open(filename, 'r') as f:
+        for line in f:
+            yield line.strip()
+
+print("\n3. File Reading Generator:")
+print("   def read_large_file(filename):")
+print("       with open(filename, 'r') as f:")
+print("           for line in f:")
+print("               yield line.strip()")
+print("   # Memory efficient - doesn't load entire file")
+
+# ========== PART 6: Generator vs Iterator ==========
+print("\n" + "─" * 60)
+print("PART 6: Generator vs Iterator Comparison")
+print("─" * 60)
+
+# Iterator approach
+class SquareIterator:
+    """Iterator that squares numbers"""
+    def __init__(self, n):
+        self.n = n
+        self.current = 0
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.current >= self.n:
+            raise StopIteration
+        result = self.current ** 2
+        self.current += 1
+        return result
+
+# Generator approach
+def square_generator(n):
+    """Generator that squares numbers"""
+    for i in range(n):
+        yield i ** 2
+
+print("\n1. Iterator Approach (More Code):")
+iter_squares = SquareIterator(5)
+print(f"   list(iter_squares) = {list(iter_squares)}")
+
+print("\n2. Generator Approach (Less Code):")
+gen_squares = square_generator(5)
+print(f"   list(gen_squares) = {list(gen_squares)}")
+
+print("\n3. Key Differences:")
+print("   Iterator:")
+print("     • Requires class with __iter__ and __next__")
+print("     • More verbose")
+print("     • More control")
+print("   Generator:")
+print("     • Simple function with yield")
+print("     • Less code")
+print("     • Automatic state management")
+
+# ========== PART 7: Generator State ==========
+print("\n" + "─" * 60)
+print("PART 7: Generator State Preservation")
+print("─" * 60)
+
+def stateful_generator():
+    """Generator that maintains state"""
+    total = 0
+    for i in range(5):
+        total += i
+        yield total
+
+print("\n1. State Preservation:")
+gen = stateful_generator()
+print("   Generator remembers state between calls:")
+for value in gen:
+    print(f"     {value}")
+
+# ========== PART 8: Generator Methods ==========
+print("\n" + "─" * 60)
+print("PART 8: Generator Methods")
+print("─" * 60)
+
+def advanced_generator():
+    """Generator with send(), throw(), close()"""
+    value = yield "First"
+    while True:
+        value = yield f"Received: {value}"
+
+print("\n1. Generator Methods:")
+gen = advanced_generator()
+print(f"   next(gen) = {next(gen)}")
+print(f"   gen.send('Hello') = {gen.send('Hello')}")
+print(f"   gen.send('World') = {gen.send('World')}")
+
+# ========== SUMMARY ==========
+print("\n" + "=" * 60)
+print("SUMMARY - Key Takeaways")
+print("=" * 60)
+
+print("""
+1. ITERATORS:
+   • Objects with __iter__() and __next__()
+   • Manual state management
+   • More control, more code
+
+2. GENERATORS:
+   • Special type of iterator
+   • Created with yield keyword
+   • Automatic state management
+   • Memory efficient (lazy evaluation)
+
+3. GENERATOR TYPES:
+   • Generator functions: def with yield
+   • Generator expressions: (x for x in range())
+
+4. WHEN TO USE:
+   • Iterator: Complex logic, reusable class
+   • Generator: Simple sequences, memory efficiency
+
+5. KEY BENEFITS:
+   • Lazy evaluation (generate on demand)
+   • Memory efficient
+   • Clean, readable code
+   • State preservation
+""")
+
+print("=" * 60)
