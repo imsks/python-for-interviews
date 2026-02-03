@@ -32,9 +32,9 @@
 
 ## Advanced Python
 
-22. [ ] Explain Python's Iterators vs Generators. Write a generator manually.
-23. [ ] What are context managers? Implement with using __enter__ and __exit__.
-24. [ ] What is a closure in Python? How is it different from a lambda?
+22. [x] Explain Python's Iterators vs Generators. Write a generator manually.
+23. [x] What are context managers? Implement with using __enter__ and __exit__.
+24. [x] What is a closure in Python? How is it different from a lambda?
 25. [ ] How does Python implement multithreading? When to use threading vs multiprocessing?
 26. [ ] How does Python handle exceptions? Can you customize them?
 27. [ ] Explain monkey patching in Python.
