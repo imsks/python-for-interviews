@@ -38,10 +38,10 @@
 25. [x] How does Python implement multithreading? When to use threading vs multiprocessing?
 26. [x] How does Python handle exceptions? Can you customize them?
 27. [x] Explain monkey patching in Python.
-28. [ ] Explain the use of functools.lru_cache.
-29. [ ] What's the difference between @dataclass and a regular class?
-30. [ ] How do you enforce type checking in Python? (type hints + mypy)
-31. [ ] Explain the asyncio module — how does Python handle async programming?
+28. [x] Explain the use of functools.lru_cache.
+29. [x] What's the difference between @dataclass and a regular class?
+30. [x] How do you enforce type checking in Python? (type hints + mypy)
+31. [x] Explain the asyncio module — how does Python handle async programming?
 
 ## Django Interview Questions
 32. [ ] Explain Django’s MVT architecture.
