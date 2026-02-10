@@ -47,10 +47,10 @@
 32. [x] Explain Django’s MVT architecture.
 33. [x] What is the difference between __str__ and __repr__ in Django models?
 34. [x] What are Django signals and when should you use them?
-35. [ ] What is the use of Meta class in Django models?
-36. [ ] Explain the Django request-response lifecycle.
-37. [ ] How does Django ORM work under the hood?
-38. [ ] How to write raw SQL queries using Django ORM?
+35. [x] What is the use of Meta class in Django models?
+36. [x] Explain the Django request-response lifecycle.
+37. [x] How does Django ORM work under the hood?
+38. [x] How to write raw SQL queries using Django ORM?
 39. [ ] Difference between null=True vs blank=True in models?
 40. [ ] What are related_name, on_delete, and reverse relationships in models?
 41. [ ] How to use custom managers in Django?
