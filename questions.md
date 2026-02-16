@@ -55,13 +55,13 @@
 39. [x] Difference between null=True vs blank=True in models?
 40. [x] What are related_name, on_delete, and reverse relationships in models?
 41. [x] How to use custom managers in Django?
-42. [ ] How is middleware implemented in Django? Give a real-world use case.
-43. [ ] Explain Class-based vs Function-based views. When to use which?
-44. [ ] What are mixins? How are they useful?.
-45. [ ] Difference between Form and ModelForm?
-46. [ ] How to add custom validation to Django forms?
-47. [ ] How do Django serializers (with DRF) differ from regular forms?
-48. [ ] What is CSRF protection and how does Django enforce it?
+42. [x] How is middleware implemented in Django? Give a real-world use case.
+43. [x] Explain Class-based vs Function-based views. When to use which?
+44. [x] What are mixins? How are they useful?.
+45. [x] Difference between Form and ModelForm?
+46. [x] How to add custom validation to Django forms?
+47. [x] How do Django serializers (with DRF) differ from regular forms?
+48. [x] What is CSRF protection and how does Django enforce it?
 49. [ ] How does Django handle sessions and cookies?
 50. [ ] How to secure sensitive views and prevent unauthorized access?
 51. [ ] How would you handle file uploads in Django?
