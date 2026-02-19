@@ -62,17 +62,17 @@
 46. [x] How to add custom validation to Django forms?
 47. [x] How do Django serializers (with DRF) differ from regular forms?
 48. [x] What is CSRF protection and how does Django enforce it?
-49. [ ] How does Django handle sessions and cookies?
-50. [ ] How to secure sensitive views and prevent unauthorized access?
-51. [ ] How would you handle file uploads in Django?
-52. [ ] Difference between MEDIA_ROOT vs STATIC_ROOT?
-53. [ ] How to scale Django apps? (Caching, DB optimization, async views)
-54. [ ] Explain Django’s caching framework — per-view, template fragment, low-level cache.
-55. [ ] How would you use Redis in Django for caching or background tasks?
-56. [ ] What are custom Django commands and how are they written?
-57. [ ] How does Django support async views (since v3.1)?
-58. [ ] When to use Celery with Django?
-59. [ ] Difference between select_related and prefetch_related?
+49. [x] How does Django handle sessions and cookies?
+50. [x] How to secure sensitive views and prevent unauthorized access?
+51. [x] How would you handle file uploads in Django?
+52. [x] Difference between MEDIA_ROOT vs STATIC_ROOT?
+53. [x] How to scale Django apps? (Caching, DB optimization, async views)
+54. [x] Explain Django’s caching framework — per-view, template fragment, low-level cache.
+55. [x] How would you use Redis in Django for caching or background tasks?
+56. [x] What are custom Django commands and how are they written?
+57. [x] How does Django support async views (since v3.1)?
+58. [x] When to use Celery with Django?
+59. [x] Difference between select_related and prefetch_related?
 
 ## Flask Interview Questions
 
